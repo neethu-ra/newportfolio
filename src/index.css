@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* Base layout adjustments */
+:root {
+  color-scheme: dark;
+}
+
+body {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  background-color: #0f172a;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 999px;
+  border: 2px solid #0f172a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Glassmorphism panel styling */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 10px 40px 0 rgba(124, 58, 237, 0.2);
+  transform: translateY(-4px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cosmic gradients */
+.text-gradient-purple-blue {
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple-glow {
+  background: linear-gradient(135deg, #ffffff 30%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-radial-glow {
+  background: radial-gradient(circle at center, rgba(124, 58, 237, 0.15) 0%, rgba(5, 8, 22, 0) 70%);
+}
+
+.bg-radial-accent {
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.12) 0%, rgba(5, 8, 22, 0) 70%);
+}
+
+/* Glowing buttons & tags */
+.glow-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+}
+
+.glow-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: 0.5s;
+}
+
+.glow-button:hover::after {
+  left: 120%;
+}
+
+.glow-border {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+}
+
+.glow-border-accent {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+/* Keyboard typing cursor simulation */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { color: transparent }
+  50% { color: #38bdf8 }
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Hide default cursor on desktop device when custom cursor is active */
+@media (min-width: 1024px) {
+  .custom-cursor-active {
+    cursor: none;
+  }
+  .custom-cursor-active a, 
+  .custom-cursor-active button, 
+  .custom-cursor-active input, 
+  .custom-cursor-active textarea,
+  .custom-cursor-active [role="button"] {
+    cursor: none;
+  }
+}
+
