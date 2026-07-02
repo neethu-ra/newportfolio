@@ -65,7 +65,7 @@ export default function App() {
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
 
     const handleType = () => {
       const currentWord = typingWords[wordIndex];
