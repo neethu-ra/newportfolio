@@ -12,16 +12,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 
-// Initialize Gemini client on server-side
+// Read Gemini API Key from environment
 const apiKey = process.env.GEMINI_API_KEY;
-const ai = new GoogleGenAI({
-  apiKey: apiKey,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
-    },
-  },
-});
 
 // Neethu's Career Context Profile for the Recruiter AI Assistant
 const NEETU_CONTEXT = `
@@ -122,6 +114,15 @@ app.post('/api/chat', async (req, res) => {
         text: "Hi there! I would love to tell you all about Neethu's awesome background, but the GEMINI_API_KEY is not configured in the Secrets panel yet. Once it is configured, I can chat dynamically with you! For now, feel free to explore Neethu's interactive portfolio sections below!"
       });
     }
+
+    const ai = new GoogleGenAI({
+      apiKey: apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
+    });
 
     // Prepare contents array
     const contents = [];
