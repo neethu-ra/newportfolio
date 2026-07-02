@@ -159,6 +159,7 @@ const PORT = 3000;
 if (!isProd) {
   const { createServer: createViteServer } = await import('vite');
   const vite = await createViteServer({
+    root: __dirname,
     server: { middlewareMode: true },
     appType: 'spa',
   });
