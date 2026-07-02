@@ -29,10 +29,9 @@ import {
   X
 } from 'lucide-react';
 import NeuralCanvas from './components/NeuralCanvas';
-import AIChatBot from './components/AIChatBot';
 
-// Profile picture path
-const profilePic = "/src/assets/images/neethu_profile_avatar_1783014281988.jpg";
+// @ts-ignore
+// import profilePic from './assets/images/neethu_profile_avatar_1783014281988.jpg';
 
 export default function App() {
   // Navigation active links & mobile menu
@@ -45,8 +44,7 @@ export default function App() {
     'Software Developer',
     'Full Stack Developer',
     'Machine Learning Enthusiast',
-    'AI Research Aspirant',
-    'Data Analytics Engineer'
+    'AI Research Aspirant'
   ];
 
   // Custom cursor states
@@ -169,9 +167,6 @@ export default function App() {
       {/* Futuristic Interactive Particle background */}
       <NeuralCanvas />
 
-      {/* Interactive Chatbot Floating representative */}
-      <AIChatBot />
-
       {/* Navigation Header */}
       <nav className="sticky top-0 w-full z-40 bg-[#0f172a]/75 backdrop-blur-md border-b border-[#7c3aed]/10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -216,18 +211,6 @@ export default function App() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
-            <a
-              href={resumeDownloadLink}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="cursor-none text-xs bg-gradient-to-r from-[#7c3aed] to-[#9333ea] text-white px-5 py-2.5 rounded-lg font-medium shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center space-x-2 glow-button"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Resume</span>
-            </a>
-          </div>
-
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -262,13 +245,6 @@ export default function App() {
                 {link.label}
               </a>
             ))}
-            <a
-              href={resumeDownloadLink}
-              className="w-full text-center block text-sm bg-gradient-to-r from-[#7c3aed] to-[#9333ea] text-white px-4 py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download Resume</span>
-            </a>
           </div>
         )}
       </nav>
@@ -304,19 +280,10 @@ export default function App() {
 
             <div className="flex flex-wrap gap-4 pt-2">
               <a
-                href={resumeDownloadLink}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                className="cursor-none px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#9333ea] text-white font-medium flex items-center space-x-2 shadow-lg shadow-purple-900/30 glow-button transition-transform active:scale-95 text-sm"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download Resume</span>
-              </a>
-              <a
                 href="#projects"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="cursor-none px-6 py-3.5 rounded-xl bg-slate-900/80 border border-[#7c3aed]/30 text-white font-medium hover:border-[#38bdf8]/50 hover:bg-slate-900 transition-all active:scale-95 text-sm"
+                className="cursor-none px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#9333ea] text-white font-medium hover:scale-105 transition-all shadow-lg shadow-purple-900/30 glow-button active:scale-95 text-sm flex items-center justify-center"
               >
                 View Projects
               </a>
@@ -324,7 +291,7 @@ export default function App() {
                 href="#contact"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="cursor-none px-6 py-3.5 rounded-xl bg-transparent text-gray-300 hover:text-white font-medium transition-colors text-sm flex items-center space-x-1"
+                className="cursor-none px-6 py-3.5 rounded-xl bg-slate-900/80 border border-[#7c3aed]/30 text-white font-medium hover:border-[#38bdf8]/50 hover:bg-slate-900 transition-all active:scale-95 text-sm flex items-center space-x-1"
               >
                 <span>Contact Me</span>
                 <ChevronRight className="w-4 h-4" />
@@ -349,13 +316,17 @@ export default function App() {
 
               {/* Main Avatar Image frame */}
               <div className="absolute inset-2 rounded-full p-1.5 bg-gradient-to-tr from-[#7c3aed] via-[#9333ea] to-[#38bdf8] glow-border shadow-[0_0_40px_rgba(124,58,237,0.3)]">
-                <div className="w-full h-full rounded-full overflow-hidden bg-[#0f172a] border-2 border-[#0f172a]">
+                <div className="w-full h-full rounded-full overflow-hidden bg-[#0f172a] border-2 border-[#0f172a] flex items-center justify-center">
+                  <User className="w-24 h-24 text-slate-500/80 animate-pulse" />
+                  {/* Uncomment the code below to restore your portrait photo in the future */}
+                  {/* 
                   <img
                     src={profilePic}
                     alt="Neethu R A portrait"
                     className="w-full h-full object-cover scale-[1.03] hover:scale-110 transition-transform duration-500"
                     referrerPolicy="no-referrer"
                   />
+                  */}
                 </div>
               </div>
             </div>
@@ -410,7 +381,7 @@ export default function App() {
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
               {[
                 { title: "2+ Years", desc: "Professional Experience", color: "from-[#7c3aed]" },
-                { title: "15+ Completed", desc: "Engineering Projects", color: "from-[#38bdf8]" },
+                { title: "8+ Completed", desc: "Engineering Projects", color: "from-[#38bdf8]" },
                 { title: "1 Published", desc: "Research Publication", color: "from-[#9333ea]" },
                 { title: "8.89 / 10", desc: "Cumulative CGPA", color: "from-[#6366f1]" },
                 { title: "25+ Techs", desc: "Technologies Learned", color: "from-fuchsia-600" },
@@ -772,22 +743,9 @@ export default function App() {
                 <Code2 className="w-5 h-5" />
                 <h3 className="text-sm font-bold font-heading uppercase tracking-wider">Languages</h3>
               </div>
-              <div className="space-y-3">
-                {[
-                  { name: 'Java', level: '95%' },
-                  { name: 'Python', level: '90%' },
-                  { name: 'SQL', level: '85%' },
-                  { name: 'JavaScript', level: '80%' }
-                ].map((s) => (
-                  <div key={s.name} className="space-y-1 font-mono text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">{s.name}</span>
-                      <span className="text-gray-500">{s.level}</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#7c3aed] to-[#38bdf8] rounded-full transition-all duration-500" style={{ width: s.level }} />
-                    </div>
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {['Java', 'Python', 'SQL', 'JavaScript'].map((s) => (
+                  <span key={s} className="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">{s}</span>
                 ))}
               </div>
             </div>
@@ -798,22 +756,9 @@ export default function App() {
                 <Database className="w-5 h-5" />
                 <h3 className="text-sm font-bold font-heading uppercase tracking-wider">Backend</h3>
               </div>
-              <div className="space-y-3">
-                {[
-                  { name: 'Spring Boot', level: '88%' },
-                  { name: 'RESTful APIs', level: '92%' },
-                  { name: 'Node.js', level: '80%' },
-                  { name: 'Express.js', level: '82%' }
-                ].map((s) => (
-                  <div key={s.name} className="space-y-1 font-mono text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">{s.name}</span>
-                      <span className="text-gray-500">{s.level}</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-[#7c3aed] to-[#38bdf8] rounded-full transition-all duration-500" style={{ width: s.level }} />
-                    </div>
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {['Spring Boot', 'RESTful APIs', 'Node.js', 'Express.js'].map((s) => (
+                  <span key={s} className="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">{s}</span>
                 ))}
               </div>
             </div>
@@ -824,22 +769,9 @@ export default function App() {
                 <Layers className="w-5 h-5" />
                 <h3 className="text-sm font-bold font-heading uppercase tracking-wider">Big Data</h3>
               </div>
-              <div className="space-y-3">
-                {[
-                  { name: 'Apache Spark', level: '85%' },
-                  { name: 'PySpark', level: '88%' },
-                  { name: 'Azure Databricks', level: '80%' },
-                  { name: 'Azure Data Factory', level: '78%' }
-                ].map((s) => (
-                  <div key={s.name} className="space-y-1 font-mono text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">{s.name}</span>
-                      <span className="text-gray-500">{s.level}</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-amber-500 to-[#38bdf8] rounded-full transition-all duration-500" style={{ width: s.level }} />
-                    </div>
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {['Apache Spark', 'PySpark', 'Azure Databricks', 'Azure Data Factory'].map((s) => (
+                  <span key={s} className="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">{s}</span>
                 ))}
               </div>
             </div>
@@ -850,22 +782,9 @@ export default function App() {
                 <Cpu className="w-5 h-5" />
                 <h3 className="text-sm font-bold font-heading uppercase tracking-wider">AI & Vision</h3>
               </div>
-              <div className="space-y-3">
-                {[
-                  { name: 'Computer Vision', level: '90%' },
-                  { name: 'OpenCV', level: '92%' },
-                  { name: 'Feature Engineering', level: '85%' },
-                  { name: 'Pattern Recognition', level: '83%' }
-                ].map((s) => (
-                  <div key={s.name} className="space-y-1 font-mono text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">{s.name}</span>
-                      <span className="text-gray-500">{s.level}</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-emerald-500 to-[#38bdf8] rounded-full transition-all duration-500" style={{ width: s.level }} />
-                    </div>
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {['Computer Vision', 'OpenCV', 'Feature Engineering', 'Pattern Recognition'].map((s) => (
+                  <span key={s} className="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">{s}</span>
                 ))}
               </div>
             </div>
@@ -967,7 +886,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="p-6 space-y-3 select-text">
+                <div className="p-6 pb-8 space-y-3 select-text">
                   <div className="flex flex-wrap gap-1.5">
                     {['Python', 'OpenCV', 'ML', 'Jupyter'].map((t) => (
                       <span key={t} className="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#a78bfa] uppercase">{t}</span>
@@ -978,25 +897,6 @@ export default function App() {
                     Developed a real-time computer vision system capable of recognizing static and dynamic hand gestures for assisting deaf users. Implemented feature extraction, frame-by-frame preprocessing, machine learning models, and real-time inference evaluation.
                   </p>
                 </div>
-              </div>
-
-              <div className="p-6 pt-0 flex justify-between gap-3">
-                <a
-                  href="#"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="cursor-none flex-1 text-center py-2.5 rounded bg-slate-900/80 border border-[#7c3aed]/25 hover:border-[#38bdf8]/40 hover:text-white transition-all text-xs font-medium text-gray-300 flex items-center justify-center space-x-1"
-                >
-                  <Github className="w-3.5 h-3.5" /> <span>Source</span>
-                </a>
-                <a
-                  href="#"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="cursor-none flex-1 text-center py-2.5 rounded bg-gradient-to-tr from-[#7c3aed] to-[#38bdf8] text-white text-xs font-semibold flex items-center justify-center space-x-1"
-                >
-                  <span>Live Demo</span> <ExternalLink className="w-3.5 h-3.5" />
-                </a>
               </div>
             </div>
 
@@ -1011,7 +911,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="p-6 space-y-3 select-text">
+                <div className="p-6 pb-8 space-y-3 select-text">
                   <div className="flex flex-wrap gap-1.5">
                     {['Apache Spark', 'ALS Algorithm', 'Python'].map((t) => (
                       <span key={t} className="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#38bdf8] uppercase">{t}</span>
@@ -1022,25 +922,6 @@ export default function App() {
                     Built a scalable collaborative filtering recommendation engine using Apache Spark and Alternating Least Squares (ALS), processing large-scale movie datasets with distributed computing techniques to output recommendations.
                   </p>
                 </div>
-              </div>
-
-              <div className="p-6 pt-0 flex justify-between gap-3">
-                <a
-                  href="#"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="cursor-none flex-1 text-center py-2.5 rounded bg-slate-900/80 border border-[#7c3aed]/25 hover:border-[#38bdf8]/40 hover:text-white transition-all text-xs font-medium text-gray-300 flex items-center justify-center space-x-1"
-                >
-                  <Github className="w-3.5 h-3.5" /> <span>Source</span>
-                </a>
-                <a
-                  href="#"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="cursor-none flex-1 text-center py-2.5 rounded bg-gradient-to-tr from-[#7c3aed] to-[#38bdf8] text-white text-xs font-semibold flex items-center justify-center space-x-1"
-                >
-                  <span>Live Demo</span> <ExternalLink className="w-3.5 h-3.5" />
-                </a>
               </div>
             </div>
 
@@ -1055,7 +936,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="p-6 space-y-3 select-text">
+                <div className="p-6 pb-8 space-y-3 select-text">
                   <div className="flex flex-wrap gap-1.5">
                     {['React.js', 'Node.js', 'MongoDB', 'Blockchain'].map((t) => (
                       <span key={t} className="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-emerald-400 uppercase">{t}</span>
@@ -1066,25 +947,6 @@ export default function App() {
                     Developed a full-stack platform enabling students to showcase skills, contribute to open-source, and manage hackathons. Integrated decentralized ledger scripts to track tamper-proof student credentials.
                   </p>
                 </div>
-              </div>
-
-              <div className="p-6 pt-0 flex justify-between gap-3">
-                <a
-                  href="#"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="cursor-none flex-1 text-center py-2.5 rounded bg-slate-900/80 border border-[#7c3aed]/25 hover:border-[#38bdf8]/40 hover:text-white transition-all text-xs font-medium text-gray-300 flex items-center justify-center space-x-1"
-                >
-                  <Github className="w-3.5 h-3.5" /> <span>Source</span>
-                </a>
-                <a
-                  href="#"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="cursor-none flex-1 text-center py-2.5 rounded bg-gradient-to-tr from-[#7c3aed] to-[#38bdf8] text-white text-xs font-semibold flex items-center justify-center space-x-1"
-                >
-                  <span>Live Demo</span> <ExternalLink className="w-3.5 h-3.5" />
-                </a>
               </div>
             </div>
 
@@ -1110,7 +972,7 @@ export default function App() {
                 badge: "Publications"
               },
               {
-                title: "ISRO Telemetry Internship",
+                title: "ISRO Internship",
                 desc: "Worked on planetary payloads PRADAN network telemetry used in Chandrayaan-3 and Aditya-L1.",
                 badge: "ISRO Space Center"
               },
@@ -1123,11 +985,6 @@ export default function App() {
                 title: "Big Data ETL Integration",
                 desc: "Designed pipelines at Kantar processing millions of lines, cutting processing time by 30%.",
                 badge: "PySpark Scale"
-              },
-              {
-                title: "Computer Vision Gestures App",
-                desc: "Deployed static and dynamic gesture matrix pipelines, resolving deaf-mute translation limits.",
-                badge: "Computer Vision"
               },
               {
                 title: "High Academic Distinction",
@@ -1184,7 +1041,7 @@ export default function App() {
                   </div>
                   <div>
                     <span className="block text-gray-500 uppercase text-[9px] tracking-wider">Email Address</span>
-                    <a href="mailto:neethurokhadeashok@gmail.com" className="text-white hover:text-[#38bdf8] font-semibold">neethurokhadeashok@gmail.com</a>
+                    <a href="mailto:neethurokhadeashok@gmail.com" className="text-white hover:text-[#38bdf8] font-semibold transition-colors">neethurokhadeashok@gmail.com</a>
                   </div>
                 </div>
 
@@ -1204,7 +1061,14 @@ export default function App() {
                   </div>
                   <div>
                     <span className="block text-gray-500 uppercase text-[9px] tracking-wider">LinkedIn Network</span>
-                    <span className="text-white font-semibold">linkedin.com/in/neethu-r-a</span>
+                    <a
+                      href="https://www.linkedin.com/in/neethu-rokhade-ashoka/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-[#38bdf8] font-semibold transition-colors break-all"
+                    >
+                      linkedin.com/in/neethu-rokhade-ashoka
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1298,35 +1162,10 @@ export default function App() {
       </section>
 
       {/* 11. Footer Section */}
-      <footer className="py-12 px-6 border-t border-[#7c3aed]/10 bg-slate-950 text-center space-y-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-left space-y-1">
-            <h4 className="text-white font-bold text-lg font-heading tracking-wide">Neethu R A</h4>
-            <p className="text-xs text-gray-400">Software Developer | Full Stack Developer | AI Enthusiast</p>
-          </div>
-
-          <div className="flex space-x-4">
-            {[
-              { icon: <Linkedin className="w-4 h-4" />, url: '#' },
-              { icon: <Github className="w-4 h-4" />, url: '#' },
-              { icon: <Mail className="w-4 h-4" />, url: 'mailto:neethurokhadeashok@gmail.com' }
-            ].map((social, idx) => (
-              <a
-                key={idx}
-                href={social.url}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                className="cursor-none w-9 h-9 rounded-lg bg-slate-900 border border-[#7c3aed]/20 flex items-center justify-center text-gray-400 hover:text-[#38bdf8] hover:border-[#38bdf8]/50 transition-colors"
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div className="text-[10px] text-gray-500 font-mono select-text pt-4 border-t border-slate-900/80">
-          Designed with ❤️ using React, Framer Motion & Three.js <br />
-          &copy; {new Date().getFullYear()} Neethu R A. All Rights Reserved.
+      <footer className="py-12 px-6 border-t border-[#7c3aed]/10 bg-slate-950 text-center">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center gap-2">
+          <h4 className="text-white font-bold text-lg font-heading tracking-wide">Neethu R A</h4>
+          <p className="text-xs text-gray-400">Software Developer | Full Stack Developer | AI Enthusiast</p>
         </div>
       </footer>
     </div>
