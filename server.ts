@@ -3,6 +3,7 @@ import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -161,9 +162,28 @@ if (!isProd) {
   const vite = await createViteServer({
     root: __dirname,
     server: { middlewareMode: true },
-    appType: 'spa',
+    appType: 'custom',
   });
   app.use(vite.middlewares);
+
+  app.get('*', async (req, res, next) => {
+    // Avoid intercepting API requests
+    if (req.originalUrl.startsWith('/api')) {
+      return next();
+    }
+    try {
+      const url = req.originalUrl;
+      let template = fs.readFileSync(
+        path.resolve(__dirname, 'index.html'),
+        'utf-8'
+      );
+      template = await vite.transformIndexHtml(url, template);
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
+    } catch (e: any) {
+      vite.ssrFixStacktrace(e);
+      next(e);
+    }
+  });
 } else {
   app.use(express.static(path.join(__dirname, 'dist')));
   app.get('*', (req, res) => {
