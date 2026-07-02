@@ -1,17 +1,1327 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neethu R A | Software Developer & AI Enthusiast Portfolio</title>
-    <!-- Google Fonts for futuristic, readable typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#050816] text-white selection:bg-[#7C3AED] selection:text-white overflow-x-hidden">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neethu R A | Software Developer & AI Research Aspirant Portfolio</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
 
+  <!-- Custom Styles for Premium Polish -->
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7c3aed;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+
+    /* Floating Keyframe Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Pulse glow effects */
+    .glow-purple {
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.25);
+    }
+    .glow-blue {
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+    }
+    
+    /* Glassmorphic Panel styling */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(124, 58, 237, 0.15);
+    }
+    .glass-panel:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    /* Typing cursor animation */
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 0.8s step-end infinite;
+      color: #38bdf8;
+    }
+    @keyframes blink {
+      from, to { color: transparent }
+      50% { color: #38bdf8; }
+    }
+
+    /* Selection Colors */
+    ::selection {
+      background: rgba(124, 58, 237, 0.6);
+      color: #ffffff;
+    }
+
+    /* Custom Cursor on non-mobile */
+    @media (min-width: 1024px) {
+      .custom-cursor {
+        width: 12px;
+        height: 12px;
+        border: 2px solid #38bdf8;
+        border-radius: 50%;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+      }
+      .custom-cursor-dot {
+        width: 4px;
+        height: 4px;
+        background-color: #7c3aed;
+        border-radius: 50%;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+      }
+      .hovered-element {
+        width: 24px;
+        height: 24px;
+        background-color: rgba(56, 189, 248, 0.15);
+        border-color: #7c3aed;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#050816] text-white font-sans overflow-x-hidden antialiased">
+
+  <!-- Custom cursor elements for Desktop -->
+  <div id="cursor" class="custom-cursor hidden lg:block"></div>
+  <div id="cursor-dot" class="custom-cursor-dot hidden lg:block"></div>
+
+  <!-- Interactive Particles Canvas Background -->
+  <canvas id="neural-canvas" class="fixed inset-0 w-full h-full -z-10 pointer-events-none bg-[#050816]"></canvas>
+
+  <!-- Scroll Progress Indicator Bar -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-[#7c3aed] via-[#38bdf8] to-[#9333ea] z-50 transition-all duration-75" style="width: 0%;"></div>
+
+  <!-- Navigation Header -->
+  <nav class="sticky top-0 w-full z-40 bg-[#0f172a]/75 backdrop-blur-md border-b border-[#7c3aed]/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="#home" class="flex items-center space-x-2 cursor-pointer transition-transform hover:scale-102">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-[#7c3aed] to-[#38bdf8] flex items-center justify-center font-bold text-white text-lg tracking-wider font-heading">
+          N
+        </div>
+        <span class="text-white font-bold text-xl tracking-wider font-heading">
+          NEETHU<span class="text-[#38bdf8]">.R.A</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <div class="hidden lg:flex items-center space-x-6">
+        <a href="#home" class="nav-link text-xs uppercase tracking-wider font-medium text-[#38bdf8] transition-colors duration-300">Home</a>
+        <a href="#about" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">About</a>
+        <a href="#education" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">Education</a>
+        <a href="#publications" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">Publications</a>
+        <a href="#experience" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">Experience</a>
+        <a href="#skills" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">Skills</a>
+        <a href="#services" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">Services</a>
+        <a href="#projects" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">Projects</a>
+        <a href="#contact" class="nav-link text-xs uppercase tracking-wider font-medium text-gray-400 hover:text-white transition-colors duration-300">Contact</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="lg:hidden text-gray-400 hover:text-white p-2 focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-drawer" class="hidden lg:hidden absolute top-full left-0 w-full bg-[#0f172a] border-b border-[#7c3aed]/20 px-6 py-6 space-y-4 shadow-xl">
+      <a href="#home" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-[#38bdf8]">Home</a>
+      <a href="#about" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">About</a>
+      <a href="#education" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">Education</a>
+      <a href="#publications" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">Publications</a>
+      <a href="#experience" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">Experience</a>
+      <a href="#skills" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">Skills</a>
+      <a href="#services" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">Services</a>
+      <a href="#projects" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">Projects</a>
+      <a href="#contact" class="mobile-nav-link block text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-white">Contact</a>
+    </div>
+  </nav>
+
+  <!-- 1. Hero Section -->
+  <section id="home" class="relative min-h-[calc(100vh-80px)] flex items-center px-6 md:px-12 py-12 md:py-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+      
+      <!-- Left Column text details -->
+      <div class="lg:col-span-7 space-y-6 md:space-y-8 z-10">
+        <div class="space-y-2">
+          <div class="inline-flex items-center space-x-2.5 px-3 py-1 rounded-full bg-[#7c3aed]/10 border border-[#7c3aed]/30 text-xs text-[#a78bfa] font-mono tracking-wider">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 animate-pulse text-[#38bdf8]"></i>
+            <span>AI RESEARCHER & SOFTWARE DEVELOPER</span>
+          </div>
+          <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight font-heading text-white leading-tight">
+            Hello, I'm <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#7c3aed] to-[#c084fc] drop-shadow-sm select-text">
+              Neethu R A
+            </span>
+          </h1>
+          <div class="h-8 md:h-10 flex items-center text-lg md:text-xl font-mono text-gray-300">
+            <span class="text-[#38bdf8] font-semibold">&gt;&nbsp;</span>
+            <span id="typing-text" class="typing-cursor select-text"></span>
+          </div>
+        </div>
+
+        <p class="text-gray-300 text-sm md:text-base leading-relaxed max-w-2xl select-text">
+          Aspiring graduate in Computer Science with a strong academic foundation in algorithms, data structures, mathematics, software systems, and algorithmic problem-solving.
+          <br><br>
+          Currently working as a <strong class="text-white">Software Developer</strong> with hands-on experience in Machine Learning, Computer Vision, Big Data Processing, Cloud Technologies, and Enterprise Backend Development. Passionate about Artificial Intelligence, Pattern Recognition, and Data-Driven Modeling.
+        </p>
+
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#projects" class="interactive px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#9333ea] text-white font-medium hover:scale-105 transition-all shadow-lg shadow-purple-900/30 active:scale-95 text-sm flex items-center justify-center">
+            View Projects
+          </a>
+          <a href="#contact" class="interactive px-6 py-3.5 rounded-xl bg-slate-900/80 border border-[#7c3aed]/30 text-white font-medium hover:border-[#38bdf8]/50 hover:bg-slate-900 transition-all active:scale-95 text-sm flex items-center space-x-1">
+            <span>Contact Me</span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column Profile Picture Orb -->
+      <div class="lg:col-span-5 flex justify-center items-center z-10">
+        <div class="relative w-72 h-72 md:w-80 md:h-80 select-none">
+          <!-- Spinning futuristic space rings -->
+          <div class="absolute inset-0 rounded-full border border-dashed border-[#7c3aed]/40 animate-[spin_25s_linear_infinite]"></div>
+          <div class="absolute -inset-4 rounded-full border border-double border-[#38bdf8]/15 animate-[spin_35s_linear_infinite]"></div>
+          <div class="absolute -inset-8 rounded-full border border-[#7c3aed]/5 animate-[spin_45s_linear_infinite]"></div>
+          
+          <!-- Soft particle spots -->
+          <div class="absolute -top-4 -left-4 w-4 h-4 rounded-full bg-[#38bdf8]/50 blur-md animate-ping"></div>
+          <div class="absolute -bottom-4 -right-4 w-4 h-4 rounded-full bg-[#7c3aed]/50 blur-md animate-ping" style="animation-delay: 1s;"></div>
+
+          <!-- Glowing gradient backdrops -->
+          <div class="absolute inset-4 rounded-full bg-gradient-to-tr from-[#7c3aed]/25 to-[#38bdf8]/25 blur-xl animate-pulse"></div>
+
+          <!-- Main Avatar Image frame -->
+          <div class="absolute inset-2 rounded-full p-1.5 bg-gradient-to-tr from-[#7c3aed] via-[#9333ea] to-[#38bdf8] shadow-[0_0_40px_rgba(124,58,237,0.3)]">
+            <div class="w-full h-full rounded-full overflow-hidden bg-[#0f172a] border-2 border-[#0f172a] flex items-center justify-center">
+              <i data-lucide="user" class="w-24 h-24 text-slate-500/80 animate-pulse"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll indicator chevron -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce">
+      <a href="#about" class="text-gray-500 hover:text-[#38bdf8] transition-colors">
+        <i data-lucide="chevron-down" class="w-6 h-6"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 2. About Me Section -->
+  <section id="about" class="py-24 px-6 md:px-12 bg-slate-950/40 relative border-t border-[#7c3aed]/5">
+    <div class="max-w-7xl mx-auto space-y-16">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> About Me <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm md:text-base font-mono uppercase tracking-widest">Neethu R A / Profile Dossier</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <!-- Biography text -->
+        <div class="lg:col-span-7 space-y-6 select-text">
+          <h3 class="text-xl md:text-2xl font-bold text-white font-heading">
+            Bridging Software Engineering & Cognitive AI Systems
+          </h3>
+          <p class="text-gray-300 leading-relaxed text-sm md:text-base">
+            I am a highly driven, detail-oriented computer science professional blending rigorous theoretical methodologies with hands-on enterprise-level software engineering experience.
+            My focus lies in building reliable backend architectures, high-performance big data ETL pipelines, and smart computer vision solutions that make automated reasoning practical.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="glass-panel p-4 rounded-xl border-l-2 border-l-[#7c3aed] space-y-1">
+              <h4 class="text-xs font-semibold text-[#38bdf8] font-mono tracking-wider uppercase">Software Engineering Core</h4>
+              <p class="text-xs text-gray-300">Expertise in object-oriented structures, clean backend APIs, and Google Cloud services.</p>
+            </div>
+            <div class="glass-panel p-4 rounded-xl border-l-2 border-l-[#7c3aed] space-y-1">
+              <h4 class="text-xs font-semibold text-[#38bdf8] font-mono tracking-wider uppercase">Research Mindset</h4>
+              <p class="text-xs text-gray-300">Always exploring academic papers, modeling frameworks, and experimental ML systems.</p>
+            </div>
+            <div class="glass-panel p-4 rounded-xl border-l-2 border-l-[#7c3aed] space-y-1">
+              <h4 class="text-xs font-semibold text-[#38bdf8] font-mono tracking-wider uppercase">AI & Data Science Domain</h4>
+              <p class="text-xs text-gray-300">Skilled in feature extraction, computer vision algorithms, PySpark data parsing, and modeling.</p>
+            </div>
+            <div class="glass-panel p-4 rounded-xl border-l-2 border-l-[#7c3aed] space-y-1">
+              <h4 class="text-xs font-semibold text-[#38bdf8] font-mono tracking-wider uppercase">Full Stack Mastery</h4>
+              <p class="text-xs text-gray-300">Capable of creating secure React SPAs, robust Node.js middleware, and blockchain validation ledgers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics cards -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+          <div class="glass-panel p-5 rounded-xl flex flex-col justify-between hover:border-[#38bdf8]/30 hover:scale-[1.03] transition-all duration-300">
+            <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 font-heading">2+ Years</span>
+            <span class="text-xs text-gray-400 font-mono tracking-wide mt-2">Professional Experience</span>
+            <div class="w-6 h-1 mt-3 rounded-full bg-gradient-to-r from-[#7c3aed] to-transparent"></div>
+          </div>
+          <div class="glass-panel p-5 rounded-xl flex flex-col justify-between hover:border-[#38bdf8]/30 hover:scale-[1.03] transition-all duration-300">
+            <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 font-heading">8+ Completed</span>
+            <span class="text-xs text-gray-400 font-mono tracking-wide mt-2">Engineering Projects</span>
+            <div class="w-6 h-1 mt-3 rounded-full bg-gradient-to-r from-[#38bdf8] to-transparent"></div>
+          </div>
+          <div class="glass-panel p-5 rounded-xl flex flex-col justify-between hover:border-[#38bdf8]/30 hover:scale-[1.03] transition-all duration-300">
+            <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 font-heading">1 Published</span>
+            <span class="text-xs text-gray-400 font-mono tracking-wide mt-2">Research Publication</span>
+            <div class="w-6 h-1 mt-3 rounded-full bg-gradient-to-r from-[#9333ea] to-transparent"></div>
+          </div>
+          <div class="glass-panel p-5 rounded-xl flex flex-col justify-between hover:border-[#38bdf8]/30 hover:scale-[1.03] transition-all duration-300">
+            <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 font-heading">8.89 / 10</span>
+            <span class="text-xs text-gray-400 font-mono tracking-wide mt-2">Cumulative CGPA</span>
+            <div class="w-6 h-1 mt-3 rounded-full bg-gradient-to-r from-[#6366f1] to-transparent"></div>
+          </div>
+          <div class="glass-panel p-5 rounded-xl flex flex-col justify-between hover:border-[#38bdf8]/30 hover:scale-[1.03] transition-all duration-300">
+            <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 font-heading">25+ Techs</span>
+            <span class="text-xs text-gray-400 font-mono tracking-wide mt-2">Technologies Learned</span>
+            <div class="w-6 h-1 mt-3 rounded-full bg-gradient-to-r from-fuchsia-600 to-transparent"></div>
+          </div>
+          <div class="glass-panel p-5 rounded-xl flex flex-col justify-between hover:border-[#38bdf8]/30 hover:scale-[1.03] transition-all duration-300">
+            <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 font-heading">ISRO Intern</span>
+            <span class="text-xs text-gray-400 font-mono tracking-wide mt-2">Mission PRADAN API</span>
+            <div class="w-6 h-1 mt-3 rounded-full bg-gradient-to-r from-sky-500 to-transparent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Education Timeline Section -->
+  <section id="education" class="py-24 px-6 md:px-12 relative">
+    <div class="max-w-4xl mx-auto space-y-16">
+      <div class="text-center space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Education Timeline <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Academic Foundations & Credentials</p>
+      </div>
+
+      <div class="relative border-l border-[#7c3aed]/25 pl-6 md:pl-8 space-y-12 ml-4 md:ml-8 select-text">
+        
+        <!-- Timeline Item 1 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1 w-4 h-4 rounded-full bg-[#0f172a] border-2 border-[#7c3aed] group-hover:border-[#38bdf8] group-hover:scale-125 transition-all duration-300 z-10"></div>
+          <div class="absolute -left-[35px] md:-left-[43px] top-0 w-6 h-6 rounded-full bg-[#7c3aed]/25 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#7c3aed]/40 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+              <span class="text-xs font-semibold font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 text-[#a78bfa] border border-[#7c3aed]/20 w-fit">
+                2019 – 2023
+              </span>
+              <span class="text-xs font-bold font-mono text-[#38bdf8]">CGPA: 8.89 / 10</span>
+            </div>
+            <div>
+              <h3 class="text-lg md:text-xl font-bold text-white font-heading">Bachelor of Engineering (B.E.)</h3>
+              <p class="text-sm text-[#a78bfa] font-semibold">Computer Science & Engineering</p>
+              <p class="text-xs text-gray-400 mt-1">Dayananda Sagar College of Engineering — Visvesvaraya Technological University (VTU)</p>
+            </div>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Rigorous computer engineering coursework specializing in Object-Oriented Software Structures, Design & Analysis of Algorithms, Data Mining, Database Systems, Computer Networks, and Machine Learning applications.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 2 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1 w-4 h-4 rounded-full bg-[#0f172a] border-2 border-[#7c3aed] group-hover:border-[#38bdf8] group-hover:scale-125 transition-all duration-300 z-10"></div>
+          <div class="absolute -left-[35px] md:-left-[43px] top-0 w-6 h-6 rounded-full bg-[#7c3aed]/25 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#7c3aed]/40 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+              <span class="text-xs font-semibold font-mono px-2.5 py-1 rounded bg-slate-800 text-gray-300 w-fit">
+                2017 – 2019
+              </span>
+              <span class="text-xs font-bold font-mono text-[#38bdf8]">Score: 89.83%</span>
+            </div>
+            <div>
+              <h3 class="text-lg md:text-xl font-bold text-white font-heading">Pre-University Education (Class XII)</h3>
+              <p class="text-sm text-gray-400">MES PU College</p>
+            </div>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Focused study on fundamental sciences, physics, chemistry, mathematics, and computer logic. Developed key analytical reasoning and mathematical problem-solving skills.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 3 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1 w-4 h-4 rounded-full bg-[#0f172a] border-2 border-[#7c3aed] group-hover:border-[#38bdf8] group-hover:scale-125 transition-all duration-300 z-10"></div>
+          <div class="absolute -left-[35px] md:-left-[43px] top-0 w-6 h-6 rounded-full bg-[#7c3aed]/25 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#7c3aed]/40 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+              <span class="text-xs font-semibold font-mono px-2.5 py-1 rounded bg-slate-800 text-gray-300 w-fit">
+                2014 – 2017
+              </span>
+              <span class="text-xs font-bold font-mono text-[#38bdf8]">Score: 93.76%</span>
+            </div>
+            <div>
+              <h3 class="text-lg md:text-xl font-bold text-white font-heading">Secondary School Leaving Certificate (Class X)</h3>
+              <p class="text-sm text-gray-400">Nirmala Rani High School</p>
+            </div>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Completed foundational secondary curriculum with high distinctions in mathematics, sciences, and information technology logic.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Publications Section -->
+  <section id="publications" class="py-24 px-6 md:px-12 bg-slate-950/40 relative border-t border-[#7c3aed]/5">
+    <div class="max-w-5xl mx-auto space-y-16">
+      <div class="text-center space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Research Publication <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Decentralized Trust & Distributed Ledgers</p>
+      </div>
+
+      <!-- Research Card -->
+      <div class="glass-panel p-6 md:p-10 rounded-2xl relative overflow-hidden border border-[#7c3aed]/30 hover:border-[#38bdf8]/40 transition-all duration-500 select-text">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
+          <div class="lg:col-span-8 space-y-5">
+            <div class="inline-flex flex-wrap gap-2">
+              <span class="text-[10px] font-bold font-mono tracking-wider bg-[#7c3aed]/10 text-[#c084fc] px-2.5 py-1 rounded border border-[#7c3aed]/30 uppercase">
+                IRJET JOURNAL
+              </span>
+              <span class="text-[10px] font-bold font-mono tracking-wider bg-slate-800 text-gray-300 px-2.5 py-1 rounded uppercase">
+                DECEMBER 2023 INDEXED
+              </span>
+            </div>
+
+            <h3 class="text-xl md:text-3xl font-bold text-white font-heading leading-snug">
+              Web Based and Blockchain Application for Educational Institution
+            </h3>
+
+            <p class="text-xs md:text-sm text-gray-300 leading-relaxed">
+              <strong>Abstract:</strong> Decentralized blockchain networks provide secure, tamper-proof ledgers perfect for preserving academic credentials. This research presents an integrated web ecosystem built for educational institutions that anchors student performance certificates on an immutable decentralized blockchain network. By incorporating cryptographic blocks validation and cryptographic hash pairing, the system completely removes administrative credential fraud, providing instantly verifiable digital transcripts for employers and recruiters.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono pt-2">
+              <div>
+                <span class="block text-gray-400">Journal:</span>
+                <span class="text-white font-medium">IRJET</span>
+              </div>
+              <div>
+                <span class="block text-gray-400">Volume & Issue:</span>
+                <span class="text-white font-medium">Vol 10, Issue 2</span>
+              </div>
+              <div>
+                <span class="block text-gray-400">Date:</span>
+                <span class="text-white font-medium">February 2023</span>
+              </div>
+              <div>
+                <span class="block text-gray-400">Status:</span>
+                <span class="text-emerald-400 font-bold flex items-center">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1 text-emerald-400"></i> Published
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blockchain graphics visualization -->
+          <div class="lg:col-span-4 bg-slate-900/80 border border-[#7c3aed]/20 rounded-xl p-5 space-y-4">
+            <h4 class="text-xs font-bold text-[#38bdf8] font-mono tracking-wider uppercase flex items-center space-x-1.5">
+              <i data-lucide="layers" class="w-4 h-4"></i>
+              <span>BLOCKCHAIN ARCHITECTURE</span>
+            </h4>
+            <div class="space-y-3 font-mono text-[10px]">
+              <div class="p-2 bg-slate-950 rounded border border-[#7c3aed]/30 relative">
+                <span class="block font-bold text-[#a78bfa]">Block #142 (Institution Key)</span>
+                <span class="block text-gray-500 truncate mt-0.5">Hash: 0000a1f8c...92be</span>
+                <span class="block text-gray-500 truncate">Prev: 0000e39a2...fd4c</span>
+              </div>
+              <div class="h-4 flex justify-center items-center">
+                <div class="w-0.5 h-full bg-[#38bdf8]"></div>
+              </div>
+              <div class="p-2 bg-slate-950 rounded border border-[#38bdf8]/30 relative animate-pulse">
+                <span class="block font-bold text-[#38bdf8]">Block #143 (Student Record)</span>
+                <span class="block text-gray-500 truncate mt-0.5">Hash: 000078cd2...1a5e</span>
+                <span class="block text-gray-500 truncate">Prev: 0000a1f8c...92be</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Career Experience Timeline Section -->
+  <section id="experience" class="py-24 px-6 md:px-12 relative">
+    <div class="max-w-4xl mx-auto space-y-16">
+      <div class="text-center space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Career Experience <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Professional Experience & Projects</p>
+      </div>
+
+      <div class="relative border-l border-[#7c3aed]/25 pl-6 md:pl-8 space-y-12 ml-4 md:ml-8 select-text">
+        
+        <!-- Experience Item 1: HCLTech -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1 w-4 h-4 rounded-full bg-[#0f172a] border-2 border-[#7c3aed] group-hover:border-[#38bdf8] group-hover:scale-125 transition-all duration-300 z-10"></div>
+          <div class="absolute -left-[35px] md:-left-[43px] top-0 w-6 h-6 rounded-full bg-[#7c3aed]/25 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-4 hover:border-[#7c3aed]/40 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+              <div class="space-y-1">
+                <h3 class="text-xl font-bold text-white font-heading">Software Developer</h3>
+                <p class="text-sm font-semibold text-[#a78bfa]">HCLTech</p>
+              </div>
+              <span class="text-xs font-semibold font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 text-[#a78bfa] border border-[#7c3aed]/20 w-fit">
+                June 2025 – Present
+              </span>
+            </div>
+            
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Engineering critical enterprise backend banking systems on cloud-native infrastructure, keeping speed and scale at the center of operations.
+            </p>
+
+            <div class="space-y-2">
+              <h4 class="text-xs font-semibold text-[#38bdf8] uppercase tracking-wider font-mono">Key Responsibilities:</h4>
+              <ul class="text-xs text-gray-400 space-y-1.5 list-disc pl-4 leading-relaxed">
+                <li>Developed highly secure backend services inside the Payments domain of international Enterprise Banking Applications.</li>
+                <li>Utilized object-oriented Java and Spring frameworks to implement robust, clean modular banking components.</li>
+                <li>Integrated cloud storage and message structures on Google Cloud Platform (GCP) for reliable distributed event queuing.</li>
+                <li>Designed, monitored, and scaled critical banking RESTful API pathways, improving integration times across cross-functional domains.</li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Java</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Google Cloud (GCP)</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">REST APIs</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Spring Boot</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Enterprise Payments</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Item 2: Kantar -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1 w-4 h-4 rounded-full bg-[#0f172a] border-2 border-[#7c3aed] group-hover:border-[#38bdf8] group-hover:scale-125 transition-all duration-300 z-10"></div>
+          <div class="absolute -left-[35px] md:-left-[43px] top-0 w-6 h-6 rounded-full bg-[#7c3aed]/25 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-4 hover:border-[#7c3aed]/40 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+              <div class="space-y-1">
+                <h3 class="text-xl font-bold text-white font-heading">Software Engineer I</h3>
+                <p class="text-sm font-semibold text-[#a78bfa]">Kantar</p>
+              </div>
+              <span class="text-xs font-semibold font-mono px-2.5 py-1 rounded bg-slate-800 text-gray-300 w-fit">
+                August 2023 – June 2025
+              </span>
+            </div>
+
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Spearheaded distributed data processing architectures and analytics ETL modules for globally consumed user analytics platforms.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="p-3 bg-slate-900/60 rounded-xl border border-[#7c3aed]/10 text-center">
+                <span class="block text-lg font-bold text-[#38bdf8] font-heading">40%</span>
+                <span class="text-[10px] text-gray-400 font-mono uppercase">System Complexity Reduced</span>
+              </div>
+              <div class="p-3 bg-slate-900/60 rounded-xl border border-[#7c3aed]/10 text-center">
+                <span class="block text-lg font-bold text-[#c084fc] font-heading">30%</span>
+                <span class="text-[10px] text-gray-400 font-mono uppercase">Page Load Time Improved</span>
+              </div>
+              <div class="p-3 bg-slate-900/60 rounded-xl border border-[#7c3aed]/10 text-center">
+                <span class="block text-lg font-bold text-emerald-400 font-heading">50%</span>
+                <span class="text-[10px] text-gray-400 font-mono uppercase">User Engagement Growth</span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="text-xs font-semibold text-[#38bdf8] uppercase tracking-wider font-mono">Key Highlights & ETL Pipelines:</h4>
+              <ul class="text-xs text-gray-400 space-y-1.5 list-disc pl-4 leading-relaxed">
+                <li>Built large-scale analytical processing workflows handling millions of user records with PySpark and Python.</li>
+                <li>Designed scalable cloud pipelines on Azure Databricks and scheduled execution via Azure Data Factory.</li>
+                <li>Preprocessed high-velocity transactional databases, resolving features extraction and anomalies handling with optimized SQL scripts.</li>
+                <li>Collaborated in multi-region deployments, deploying high-integrity reports to key enterprise marketing partners.</li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Python</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">PySpark</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Apache Spark</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">SQL</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Azure Databricks</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">Azure Data Factory</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/15 text-gray-300">ETL workflows</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Item 3: ISRO / ISTRAC -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] md:-left-[39px] top-1 w-4 h-4 rounded-full bg-[#0f172a] border-2 border-[#38bdf8] group-hover:scale-125 transition-all duration-300 z-10"></div>
+          <span class="absolute -left-[35px] md:-left-[43px] top-0 flex h-6 w-6">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38bdf8]/30 opacity-75"></span>
+          </span>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-4 hover:border-[#38bdf8]/40 border border-[#38bdf8]/20 transition-all duration-300 relative overflow-hidden bg-slate-950/60 shadow-[0_0_25px_rgba(56,189,248,0.08)]">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 relative z-10">
+              <div class="space-y-1">
+                <h3 class="text-xl font-bold text-white font-heading flex items-center space-x-2">
+                  <i data-lucide="rocket" class="w-5 h-5 text-[#38bdf8] animate-bounce"></i>
+                  <span>Software Engineering Intern</span>
+                </h3>
+                <p class="text-sm font-semibold text-[#38bdf8]">ISRO / ISTRAC</p>
+              </div>
+              <span class="text-xs font-semibold font-mono px-2.5 py-1 rounded bg-[#38bdf8]/10 text-[#38bdf8] border border-[#38bdf8]/20 w-fit uppercase tracking-widest">
+                Nov 2022 – March 2023
+              </span>
+            </div>
+
+            <p class="text-xs text-gray-300 leading-relaxed relative z-10">
+              Gained space-ground telemetry systems context working at <strong class="text-[#38bdf8]">ISTRAC (ISRO Telemetry, Tracking and Command Network)</strong>, contributing to active space missions applications.
+            </p>
+
+            <div class="space-y-2 relative z-10">
+              <h4 class="text-xs font-semibold text-[#38bdf8] uppercase tracking-wider font-mono">Mission Deployments & Applications:</h4>
+              <ul class="text-xs text-gray-400 space-y-1.5 list-disc pl-4 leading-relaxed">
+                <li>Worked on core modules of the <strong class="text-white">PRADAN (Payload Data Access Network)</strong> web-application used for space data dissemination.</li>
+                <li>Aided team projects associated with historic missions data parsing such as <strong class="text-[#38bdf8]">Chandrayaan-3</strong> lunar landing and <strong class="text-amber-400">Aditya-L1</strong> solar observation platforms.</li>
+                <li>Developed responsive frontend control panels and user forms using native HTML, CSS, and modern JavaScript.</li>
+                <li>Engineered Java-based enterprise backend REST integrations parsing high-dimensional geographic coordinates.</li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 pt-2 relative z-10">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1e1b4b]/60 border border-[#38bdf8]/30 text-white">Java Backend</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1e1b4b]/60 border border-[#38bdf8]/30 text-white">HTML5</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1e1b4b]/60 border border-[#38bdf8]/30 text-white">CSS3</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1e1b4b]/60 border border-[#38bdf8]/30 text-white">JavaScript (ES6)</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1e1b4b]/60 border border-[#38bdf8]/30 text-white">PRADAN Network</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1e1b4b]/60 border border-[#38bdf8]/30 text-white">Telemetry Systems</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Skills Section -->
+  <section id="skills" class="py-24 px-6 md:px-12 bg-slate-950/40 relative border-t border-[#7c3aed]/5">
+    <div class="max-w-7xl mx-auto space-y-16">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Technical Skillsets <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Active Engineering Competencies</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Programming & Core -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4 hover:border-[#7c3aed]/40 transition-all duration-300">
+          <div class="flex items-center space-x-2 text-[#38bdf8]">
+            <i data-lucide="code-2" class="w-5 h-5 text-[#38bdf8]"></i>
+            <h3 class="text-sm font-bold font-heading uppercase tracking-wider">Languages</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Java</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Python</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">SQL</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">JavaScript</span>
+          </div>
+        </div>
+
+        <!-- Backend & Systems -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4 hover:border-[#7c3aed]/40 transition-all duration-300">
+          <div class="flex items-center space-x-2 text-[#c084fc]">
+            <i data-lucide="database" class="w-5 h-5 text-[#c084fc]"></i>
+            <h3 class="text-sm font-bold font-heading uppercase tracking-wider">Backend</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Spring Boot</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">RESTful APIs</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Node.js</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Express.js</span>
+          </div>
+        </div>
+
+        <!-- Big Data & Analytics -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4 hover:border-[#7c3aed]/40 transition-all duration-300">
+          <div class="flex items-center space-x-2 text-amber-400">
+            <i data-lucide="layers" class="w-5 h-5 text-amber-400"></i>
+            <h3 class="text-sm font-bold font-heading uppercase tracking-wider">Big Data</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Apache Spark</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">PySpark</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Azure Databricks</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Azure Data Factory</span>
+          </div>
+        </div>
+
+        <!-- AI, CV & ML -->
+        <div class="glass-panel p-5 rounded-2xl space-y-4 hover:border-[#7c3aed]/40 transition-all duration-300">
+          <div class="flex items-center space-x-2 text-emerald-400">
+            <i data-lucide="cpu" class="w-5 h-5 text-emerald-400"></i>
+            <h3 class="text-sm font-bold font-heading uppercase tracking-wider">AI & Vision</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Computer Vision</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">OpenCV</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Feature Engineering</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Pattern Recognition</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools & Soft Skills grid footer -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="glass-panel p-5 rounded-2xl space-y-3">
+          <h4 class="text-xs font-bold text-gray-400 font-mono uppercase tracking-wider">Cloud & Databases</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Google Cloud Platform (GCP)</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">MySQL</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">MongoDB</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Elasticsearch</span>
+          </div>
+        </div>
+
+        <div class="glass-panel p-5 rounded-2xl space-y-3">
+          <h4 class="text-xs font-bold text-gray-400 font-mono uppercase tracking-wider">Engineering Tools</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">GitHub</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Postman</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">VS Code</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Jira</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Jupyter Notebook</span>
+          </div>
+        </div>
+
+        <div class="glass-panel p-5 rounded-2xl space-y-3">
+          <h4 class="text-xs font-bold text-gray-400 font-mono uppercase tracking-wider">Soft Skillsets</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Problem Solving</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Analytical Thinking</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Curiosity</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Adaptability</span>
+            <span class="text-xs font-mono px-3 py-1 bg-slate-900 border border-[#7c3aed]/10 rounded-lg text-gray-200">Communication</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Services Section -->
+  <section id="services" class="py-24 px-6 md:px-12 relative">
+    <div class="max-w-4xl mx-auto space-y-16">
+      <div class="text-center space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Focus Service <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Solutions & Capabilities</p>
+      </div>
+
+      <div class="glass-panel p-8 rounded-2xl border border-[#7c3aed]/30 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:border-[#38bdf8]/40 transition-all duration-500">
+        <div class="space-y-4 max-w-2xl">
+          <div class="flex items-center space-x-3 text-[#38bdf8]">
+            <div class="p-2 bg-[#7c3aed]/10 rounded-xl border border-[#7c3aed]/30">
+              <i data-lucide="globe" class="w-6 h-6 text-[#38bdf8]"></i>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-white font-heading">Full Stack Development</h3>
+          </div>
+          <p class="text-sm text-gray-300 leading-relaxed select-text">
+            Design and develop scalable, responsive, and modern web applications using contemporary frontend and backend technologies with clean architecture, RESTful APIs, database integration, and cloud-ready deployment.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 border border-[#7c3aed]/20 text-[#a78bfa]">React.js</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 border border-[#7c3aed]/20 text-[#a78bfa]">Spring Boot</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 border border-[#7c3aed]/20 text-[#a78bfa]">Express.js</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 border border-[#7c3aed]/20 text-[#a78bfa]">MongoDB</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 border border-[#7c3aed]/20 text-[#a78bfa]">Cloud APIs</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-[#7c3aed]/10 border border-[#7c3aed]/20 text-[#a78bfa]">Microservices</span>
+          </div>
+        </div>
+
+        <a href="#contact" class="interactive px-5 py-3 rounded-xl bg-gradient-to-tr from-[#7c3aed] to-[#38bdf8] text-white text-xs font-semibold uppercase tracking-wider hover:scale-105 active:scale-95 transition-all text-center shrink-0 w-full md:w-auto">
+          Order Proposal
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Featured Projects Section -->
+  <section id="projects" class="py-24 px-6 md:px-12 bg-slate-950/40 relative border-t border-[#7c3aed]/5">
+    <div class="max-w-7xl mx-auto space-y-16">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Engineering Projects <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Highlighting Key Technical Solves</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Project 1 -->
+        <div class="glass-panel rounded-2xl overflow-hidden hover:border-[#38bdf8]/40 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <!-- Custom visual placeholder -->
+            <div class="h-44 bg-gradient-to-tr from-indigo-950 via-slate-900 to-[#0a0d24] relative flex items-center justify-center p-6 border-b border-[#7c3aed]/15">
+              <div class="text-center space-y-1 font-mono">
+                <i data-lucide="cpu" class="w-10 h-10 mx-auto text-[#38bdf8] animate-pulse"></i>
+                <span class="block text-[10px] text-gray-500 uppercase tracking-widest mt-2">OpenCV Node Active</span>
+                <span class="block text-xs text-[#38bdf8]">&gt;&nbsp;[Gesture Matrix]</span>
+              </div>
+            </div>
+
+            <div class="p-6 pb-8 space-y-3 select-text">
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#a78bfa] uppercase">Python</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#a78bfa] uppercase">OpenCV</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#a78bfa] uppercase">ML</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#a78bfa] uppercase">Jupyter</span>
+              </div>
+              <h3 class="text-lg font-bold text-white font-heading">Dynamic Hand Gesture Recognition</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Developed a real-time computer vision system capable of recognizing static and dynamic hand gestures for assisting deaf users. Implemented feature extraction, frame-by-frame preprocessing, machine learning models, and real-time inference evaluation.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="glass-panel rounded-2xl overflow-hidden hover:border-[#38bdf8]/40 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="h-44 bg-gradient-to-tr from-fuchsia-950 via-slate-900 to-[#0a0d24] relative flex items-center justify-center p-6 border-b border-[#7c3aed]/15">
+              <div class="text-center space-y-1 font-mono">
+                <i data-lucide="database" class="w-10 h-10 mx-auto text-[#c084fc] animate-bounce"></i>
+                <span class="block text-[10px] text-gray-500 uppercase tracking-widest mt-2">Alternating Least Squares</span>
+                <span class="block text-xs text-[#c084fc]">&gt;&nbsp;[ALS Cluster Engine]</span>
+              </div>
+            </div>
+
+            <div class="p-6 pb-8 space-y-3 select-text">
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#38bdf8] uppercase">Apache Spark</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#38bdf8] uppercase">ALS Algorithm</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-[#38bdf8] uppercase">Python</span>
+              </div>
+              <h3 class="text-lg font-bold text-white font-heading">Movie Recommendation System</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Built a scalable collaborative filtering recommendation engine using Apache Spark and Alternating Least Squares (ALS), processing large-scale movie datasets with distributed computing techniques to output recommendations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="glass-panel rounded-2xl overflow-hidden hover:border-[#38bdf8]/40 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="h-44 bg-gradient-to-tr from-blue-950 via-slate-900 to-[#0a0d24] relative flex items-center justify-center p-6 border-b border-[#7c3aed]/15">
+              <div class="text-center space-y-1 font-mono">
+                <i data-lucide="layers" class="w-10 h-10 mx-auto text-emerald-400 animate-pulse"></i>
+                <span class="block text-[10px] text-gray-500 uppercase tracking-widest mt-2">Dapp Node Active</span>
+                <span class="block text-xs text-emerald-400">&gt;&nbsp;[Mern Ledger State]</span>
+              </div>
+            </div>
+
+            <div class="p-6 pb-8 space-y-3 select-text">
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-emerald-400 uppercase">React.js</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-emerald-400 uppercase">Node.js</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-emerald-400 uppercase">MongoDB</span>
+                <span class="text-[9px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-900 border border-[#7c3aed]/10 text-emerald-400 uppercase">Blockchain</span>
+              </div>
+              <h3 class="text-lg font-bold text-white font-heading">ProFolio Blockchain System</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Developed a full-stack platform enabling students to showcase skills, contribute to open-source, and manage hackathons. Integrated decentralized ledger scripts to track tamper-proof student credentials.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Achievements Section -->
+  <section id="achievements" class="py-24 px-6 md:px-12 relative">
+    <div class="max-w-5xl mx-auto space-y-16">
+      <div class="text-center space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Achievements <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Distinctions & Milestones</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#38bdf8]/30 transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono tracking-wider font-bold bg-[#7c3aed]/10 text-[#c084fc] px-2.5 py-1 rounded w-fit border border-[#7c3aed]/25 uppercase block">
+              Publications
+            </span>
+            <h3 class="text-base font-bold text-white font-heading select-text">Published IRJET Research Paper</h3>
+            <p class="text-xs text-gray-400 leading-relaxed select-text">Ledger-secured credentials app architecture indexing. Published February 2023.</p>
+          </div>
+          <div class="flex items-center text-[#38bdf8] text-xs font-mono font-bold mt-2">
+            <i data-lucide="award" class="w-4 h-4 mr-1.5"></i> Approved Badge
+          </div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#38bdf8]/30 transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono tracking-wider font-bold bg-[#7c3aed]/10 text-[#c084fc] px-2.5 py-1 rounded w-fit border border-[#7c3aed]/25 uppercase block">
+              ISRO Space Center
+            </span>
+            <h3 class="text-base font-bold text-white font-heading select-text">ISRO Internship</h3>
+            <p class="text-xs text-gray-400 leading-relaxed select-text">Worked on planetary payloads PRADAN network telemetry used in Chandrayaan-3 and Aditya-L1.</p>
+          </div>
+          <div class="flex items-center text-[#38bdf8] text-xs font-mono font-bold mt-2">
+            <i data-lucide="award" class="w-4 h-4 mr-1.5"></i> Approved Badge
+          </div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#38bdf8]/30 transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono tracking-wider font-bold bg-[#7c3aed]/10 text-[#c084fc] px-2.5 py-1 rounded w-fit border border-[#7c3aed]/25 uppercase block">
+              Engineering Scale
+            </span>
+            <h3 class="text-base font-bold text-white font-heading select-text">Enterprise Banking Experience</h3>
+            <p class="text-xs text-gray-400 leading-relaxed select-text">Developed mission-critical payment services inside banking REST architectures at HCLTech.</p>
+          </div>
+          <div class="flex items-center text-[#38bdf8] text-xs font-mono font-bold mt-2">
+            <i data-lucide="award" class="w-4 h-4 mr-1.5"></i> Approved Badge
+          </div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#38bdf8]/30 transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono tracking-wider font-bold bg-[#7c3aed]/10 text-[#c084fc] px-2.5 py-1 rounded w-fit border border-[#7c3aed]/25 uppercase block">
+              PySpark Scale
+            </span>
+            <h3 class="text-base font-bold text-white font-heading select-text">Big Data ETL Integration</h3>
+            <p class="text-xs text-gray-400 leading-relaxed select-text">Designed pipelines at Kantar processing millions of lines, cutting processing time by 30%.</p>
+          </div>
+          <div class="flex items-center text-[#38bdf8] text-xs font-mono font-bold mt-2">
+            <i data-lucide="award" class="w-4 h-4 mr-1.5"></i> Approved Badge
+          </div>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl space-y-3 hover:border-[#38bdf8]/30 transition-all duration-300 flex flex-col justify-between">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono tracking-wider font-bold bg-[#7c3aed]/10 text-[#c084fc] px-2.5 py-1 rounded w-fit border border-[#7c3aed]/25 uppercase block">
+              Academic Honor
+            </span>
+            <h3 class="text-base font-bold text-white font-heading select-text">High Academic Distinction</h3>
+            <p class="text-xs text-gray-400 leading-relaxed select-text">Maintained a strong 8.89 Cumulative CGPA inside rigorous DSCE Computer Science curricula.</p>
+          </div>
+          <div class="flex items-center text-[#38bdf8] text-xs font-mono font-bold mt-2">
+            <i data-lucide="award" class="w-4 h-4 mr-1.5"></i> Approved Badge
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Contact Section -->
+  <section id="contact" class="py-24 px-6 md:px-12 bg-slate-950/40 relative border-t border-[#7c3aed]/5">
+    <div class="max-w-6xl mx-auto space-y-16">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading">
+          <span class="text-[#38bdf8]">&lt;</span> Reach Out <span class="text-[#38bdf8]">/&gt;</span>
+        </h2>
+        <p class="text-gray-400 text-sm font-mono uppercase tracking-widest">Connect for Recruitments & Inquiries</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <!-- Contact Details Column -->
+        <div class="lg:col-span-5 space-y-8 select-text">
+          <div class="space-y-4">
+            <h3 class="text-xl md:text-2xl font-bold text-white font-heading">
+              Let's Collaborate on Next-Gen Systems
+            </h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+              I am actively reviewing Software Engineering roles, Computer Science MS/PhD research opportunities, and data engineering projects. Let's arrange a call to discuss synergies!
+            </p>
+          </div>
+
+          <div class="space-y-4 font-mono text-xs">
+            <div class="flex items-center space-x-4 p-4 rounded-xl bg-slate-900/60 border border-[#7c3aed]/10">
+              <div class="w-10 h-10 rounded-lg bg-[#7c3aed]/10 flex items-center justify-center border border-[#7c3aed]/30 text-[#c084fc] shrink-0">
+                <i data-lucide="mail" class="w-4.5 h-4.5 text-[#c084fc]"></i>
+              </div>
+              <div>
+                <span class="block text-gray-500 uppercase text-[9px] tracking-wider">Email Address</span>
+                <a href="mailto:neethurokhadeashok@gmail.com" class="text-white hover:text-[#38bdf8] font-semibold transition-colors">neethurokhadeashok@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-4 p-4 rounded-xl bg-slate-900/60 border border-[#7c3aed]/10">
+              <div class="w-10 h-10 rounded-lg bg-[#7c3aed]/10 flex items-center justify-center border border-[#7c3aed]/30 text-[#38bdf8] shrink-0">
+                <i data-lucide="map-pin" class="w-4.5 h-4.5 text-[#38bdf8]"></i>
+              </div>
+              <div>
+                <span class="block text-gray-500 uppercase text-[9px] tracking-wider">Office Location</span>
+                <span class="text-white font-semibold">Bengaluru, Karnataka, India</span>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-4 p-4 rounded-xl bg-slate-900/60 border border-[#7c3aed]/10">
+              <div class="w-10 h-10 rounded-lg bg-[#7c3aed]/10 flex items-center justify-center border border-[#7c3aed]/30 text-emerald-400 shrink-0">
+                <i data-lucide="linkedin" class="w-4.5 h-4.5 text-emerald-400"></i>
+              </div>
+              <div>
+                <span class="block text-gray-500 uppercase text-[9px] tracking-wider">LinkedIn Network</span>
+                <a href="https://www.linkedin.com/in/neethu-rokhade-ashoka/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#38bdf8] font-semibold transition-colors break-all">linkedin.com/in/neethu-rokhade-ashoka</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-7 glass-panel p-6 md:p-8 rounded-2xl border border-[#7c3aed]/30">
+          <form id="contact-form" class="space-y-4">
+            <div id="form-fields" class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-[10px] uppercase font-bold text-gray-400 font-mono tracking-wider">Full Name</label>
+                  <input type="text" id="form-name" required placeholder="John Doe" class="w-full bg-slate-900/80 border border-[#7c3aed]/20 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8] transition-colors">
+                </div>
+                <div class="space-y-1">
+                  <label class="text-[10px] uppercase font-bold text-gray-400 font-mono tracking-wider">Email Address</label>
+                  <input type="email" id="form-email" required placeholder="johndoe@email.com" class="w-full bg-slate-900/80 border border-[#7c3aed]/20 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8] transition-colors">
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-[10px] uppercase font-bold text-gray-400 font-mono tracking-wider">Subject</label>
+                <input type="text" id="form-subject" required placeholder="Opportunity Collaboration / Research" class="w-full bg-slate-900/80 border border-[#7c3aed]/20 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8] transition-colors">
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-[10px] uppercase font-bold text-gray-400 font-mono tracking-wider">Your Message</label>
+                <textarea id="form-message" required rows="4" placeholder="Detail your requirements or meeting suggestions..." class="w-full bg-slate-900/80 border border-[#7c3aed]/20 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8] transition-colors resize-none"></textarea>
+              </div>
+
+              <button type="submit" id="form-submit-btn" class="interactive w-full py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] to-[#9333ea] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg transition-transform active:scale-95">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>Send Message</span>
+              </button>
+            </div>
+
+            <!-- Submission Success Block -->
+            <div id="form-success" class="hidden p-8 text-center space-y-3 font-mono">
+              <i data-lucide="check-circle" class="w-12 h-12 text-emerald-400 mx-auto animate-bounce"></i>
+              <h3 class="text-lg font-bold text-white">Message Transmitted!</h3>
+              <p class="text-xs text-gray-400 leading-relaxed">
+                "Thank you for reaching out! I will process your message and respond directly to your email inbox shortly." <br>— Neethu R A
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Footer Section -->
+  <footer class="py-12 px-6 border-t border-[#7c3aed]/10 bg-slate-950 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col items-center justify-center gap-2">
+      <h4 class="text-white font-bold text-lg font-heading tracking-wide">Neethu R A</h4>
+      <p class="text-xs text-gray-400">Software Developer | Full Stack Developer | AI Enthusiast</p>
+    </div>
+  </footer>
+
+  <!-- Primary Application Controller script -->
+  <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Custom Cursor Follower Logic
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursor-dot');
+    
+    if (cursor && cursorDot) {
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+      });
+
+      // Scale cursor up on hover of interactive elements
+      const interactives = document.querySelectorAll('a, button, input, textarea, .interactive');
+      interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.add('hovered-element');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('hovered-element');
+        });
+      });
+    }
+
+    // 3. Floating Particle Background Canvas System
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let particles = [];
+    let particleCount = window.innerWidth < 768 ? 25 : 65;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particleCount = window.innerWidth < 768 ? 25 : 65;
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.radius = Math.random() * 2 + 1;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(124, 58, 237, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    // Initialize particles array
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw background ambient gradients
+      ctx.fillStyle = '#050816';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Update and draw connections
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            const lineAlpha = (1 - dist / 120) * 0.12;
+            ctx.strokeStyle = `rgba(56, 189, 248, ${lineAlpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 4. Typewriter Animation Logic
+    const typingWords = [
+      'Software Developer',
+      'Full Stack Developer',
+      'Machine Learning Enthusiast',
+      'AI Research Aspirant'
+    ];
+    let wordIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const typeSpeed = 85;
+    const deleteSpeed = 45;
+    const pauseTime = 2000;
+    const typingTarget = document.getElementById('typing-text');
+
+    function handleTyping() {
+      const currentWord = typingWords[wordIdx];
+      
+      if (!isDeleting) {
+        typingTarget.textContent = currentWord.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === currentWord.length) {
+          isDeleting = true;
+          setTimeout(handleTyping, pauseTime);
+          return;
+        }
+      } else {
+        typingTarget.textContent = currentWord.substring(0, charIdx - 1);
+        charIdx--;
+        if (charIdx === 0) {
+          isDeleting = false;
+          wordIdx = (wordIdx + 1) % typingWords.length;
+        }
+      }
+      
+      setTimeout(handleTyping, isDeleting ? deleteSpeed : typeSpeed);
+    }
+    setTimeout(handleTyping, 500);
+
+    // 5. Scroll Progress and Header Active-State Monitoring
+    const scrollBar = document.getElementById('scroll-progress');
+    const sections = ['home', 'about', 'education', 'publications', 'experience', 'skills', 'services', 'projects', 'contact'];
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    window.addEventListener('scroll', () => {
+      // Progress Bar width calculation
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        const percentage = (window.scrollY / totalScroll) * 100;
+        scrollBar.style.width = percentage + '%';
+      }
+
+      // Highlight active navigation section links on scroll
+      let currentSection = 'home';
+      const scrollPosition = window.scrollY + 200;
+
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            currentSection = section;
+            break;
+          }
+        }
+      }
+
+      // Update desktop links
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href').substring(1);
+        if (href === currentSection) {
+          link.classList.add('text-[#38bdf8]', 'font-semibold');
+          link.classList.remove('text-gray-400');
+        } else {
+          link.classList.remove('text-[#38bdf8]', 'font-semibold');
+          link.classList.add('text-gray-400');
+        }
+      });
+
+      // Update mobile links
+      mobileNavLinks.forEach(link => {
+        const href = link.getAttribute('href').substring(1);
+        if (href === currentSection) {
+          link.classList.add('text-[#38bdf8]', 'font-semibold');
+          link.classList.remove('text-gray-400');
+        } else {
+          link.classList.remove('text-[#38bdf8]', 'font-semibold');
+          link.classList.add('text-gray-400');
+        }
+      });
+    });
+
+    // 6. Mobile Drawer Toggle Controls
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileDrawer.classList.toggle('hidden');
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileDrawer.classList.add('hidden');
+      });
+    });
+
+    // 7. Contact Form Simulation Delivery
+    const contactForm = document.getElementById('contact-form');
+    const formFields = document.getElementById('form-fields');
+    const formSuccess = document.getElementById('form-success');
+    
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('form-submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>TRANSMITTING MESSAGE...</span>';
+
+      setTimeout(() => {
+        formFields.classList.add('hidden');
+        formSuccess.classList.remove('hidden');
+        contactForm.reset();
+      }, 1500);
+    });
+
+
+
+  </script>
+</body>
+</html>
